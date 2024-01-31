@@ -1,0 +1,20 @@
+# Check if Chrome is installed in the standard Program Files directory
+$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+
+if (Test-Path $chromePath) {
+    Write-Host "Chrome is installed."
+    exit 1  # Exit with code 1 (success)
+}
+else {
+    # If not found in the standard directory, check the x86 Program Files directory
+    $chromePath = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+    
+    if (Test-Path $chromePath) {
+        Write-Host "Chrome is installed in the x86 Program Files directory."
+        exit 1  # Exit with code 1 (success)
+    }
+    else {
+        Write-Host "Chrome is not installed."
+        exit 0  # Exit with code 0 (failure)
+    }
+}
