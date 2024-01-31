@@ -1,0 +1,21 @@
+# Close Chrome
+Stop-Process -Name chrome -Force
+
+# Wait for a few seconds to ensure Chrome is fully closed
+Start-Sleep -Seconds 5
+
+# Try starting Chrome from the standard Program Files directory
+$chromePath = "C:\Program Files\Google\Chrome\Application\chrome.exe"
+if (Test-Path $chromePath) {
+    Start-Process $chromePath --restore-last-session
+}
+else {
+    # If not found, try starting Chrome from the x86 Program Files directory
+    $chromePath = "C:\Program Files (x86)\Google\Chrome\Application\chrome.exe"
+    if (Test-Path $chromePath) {
+        Start-Process $chromePath --restore-last-session
+    }
+    else {
+        Write-Host "Error: Chrome not found in the standard or x86 Program Files directory."
+    }
+}
